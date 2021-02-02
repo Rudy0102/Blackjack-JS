@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blackjack</title>
+    <link rel="stylesheet" href="./blackjack.css">
+    <script src="./blackjack.js" defer></script>
+</head>
+<body>
+    
+    <section class="playscreen">
+        <!-- <div class="div-center">
+            <p class="dealer-value" id="dealer-value"></p>
+        </div> -->
+        <div class="div-center">
+            <img src="./Images/HiLo/Cards/2C.png" alt="2C" id="dealer1" class="none">
+            <img src="./Images/HiLo/Cards/2D.png" alt="2D" id="dealer2" class="none">
+            <img src="./Images/HiLo/Cards/2H.png" alt="2H" id="dealer3" class="none">
+            <img src="./Images/HiLo/Cards/2S.png" alt="2S" id="dealer4" class="none">
+            <img src="./Images/HiLo/Cards/3C.png" alt="3C" id="dealer5" class="none">
+            <img src="./Images/HiLo/Cards/3D.png" alt="3D" id="dealer6" class="none">
+            <img src="./Images/HiLo/Cards/3H.png" alt="3H" id="dealer7" class="none">
+            <img src="./Images/HiLo/Cards/3S.png" alt="3S" id="dealer8" class="none">
+            <img src="./Images/HiLo/Cards/4C.png" alt="4C" id="dealer9" class="none">
+            <img src="./Images/HiLo/Cards/4D.png" alt="4D" id="dealer10" class="none">
+            <img src="./Images/HiLo/Cards/4H.png" alt="4H" id="dealer11" class="none">
+            <img src="./Images/HiLo/Cards/4S.png" alt="4S" id="dealer12" class="none">
+            <img src="./Images/HiLo/Cards/5C.png" alt="5C" id="dealer13" class="none">
+            <img src="./Images/HiLo/Cards/5D.png" alt="5D" id="dealer14" class="none">
+            <img src="./Images/HiLo/Cards/5H.png" alt="5H" id="dealer15" class="none">
+            <img src="./Images/HiLo/Cards/5S.png" alt="5S" id="dealer16" class="none">
+            <img src="./Images/HiLo/Cards/6C.png" alt="6C" id="dealer17" class="none">
+            <img src="./Images/HiLo/Cards/6D.png" alt="6D" id="dealer18" class="none">
+            <img src="./Images/HiLo/Cards/6H.png" alt="6H" id="dealer19" class="none">
+            <img src="./Images/HiLo/Cards/6S.png" alt="6S" id="dealer20" class="none">
+            <img src="./Images/HiLo/Cards/7C.png" alt="7C" id="dealer21" class="none">
+            <img src="./Images/HiLo/Cards/7D.png" alt="7D" id="dealer22" class="none">
+            <img src="./Images/HiLo/Cards/7H.png" alt="7H" id="dealer23" class="none">
+            <img src="./Images/HiLo/Cards/7S.png" alt="7S" id="dealer24" class="none">
+            <img src="./Images/HiLo/Cards/8C.png" alt="8C" id="dealer25" class="none">
+            <img src="./Images/HiLo/Cards/8D.png" alt="8D" id="dealer26" class="none">
+            <img src="./Images/HiLo/Cards/8H.png" alt="8H" id="dealer27" class="none">
+            <img src="./Images/HiLo/Cards/8S.png" alt="8S" id="dealer28" class="none">
+            <img src="./Images/HiLo/Cards/9C.png" alt="9C" id="dealer29" class="none">
+            <img src="./Images/HiLo/Cards/9D.png" alt="9D" id="dealer30" class="none">
+            <img src="./Images/HiLo/Cards/9H.png" alt="9H" id="dealer31" class="none">
+            <img src="./Images/HiLo/Cards/9S.png" alt="9S" id="dealer32" class="none">
+            <img src="./Images/HiLo/Cards/10C.png" alt="10C" id="dealer33" class="none">
+            <img src="./Images/HiLo/Cards/10D.png" alt="10D" id="dealer34" class="none">
+            <img src="./Images/HiLo/Cards/10H.png" alt="10H" id="dealer35" class="none">
+            <img src="./Images/HiLo/Cards/10S.png" alt="10S" id="dealer36" class="none">
+            <img src="./Images/HiLo/Cards/JC.png" alt="JC" id="dealer37" class="none">               
+            <img src="./Images/HiLo/Cards/JD.png" alt="JD" id="dealer38" class="none">
+            <img src="./Images/HiLo/Cards/JH.png" alt="JH" id="dealer39" class="none">
+            <img src="./Images/HiLo/Cards/JS.png" alt="JS" id="dealer40" class="none">
+            <img src="./Images/HiLo/Cards/KC.png" alt="KC" id="dealer41" class="none">
+            <img src="./Images/HiLo/Cards/KD.png" alt="KD" id="dealer42" class="none">
+            <img src="./Images/HiLo/Cards/KH.png" alt="KH" id="dealer43" class="none">
+            <img src="./Images/HiLo/Cards/KS.png" alt="KS" id="dealer44" class="none">
+            <img src="./Images/HiLo/Cards/QC.png" alt="QC" id="dealer45" class="none">
+            <img src="./Images/HiLo/Cards/QD.png" alt="QD" id="dealer46" class="none">
+            <img src="./Images/HiLo/Cards/QH.png" alt="QH" id="dealer47" class="none">
+            <img src="./Images/HiLo/Cards/QS.png" alt="QS" id="dealer48" class="none">
+            <img src="./Images/HiLo/Cards/AC.png" alt="AC" id="dealer49" class="none">
+            <img src="./Images/HiLo/Cards/AD.png" alt="AD" id="dealer50" class="none">
+            <img src="./Images/HiLo/Cards/AH.png" alt="AH" id="dealer51" class="none">
+            <img src="./Images/HiLo/Cards/AS.png" alt="AS" id="dealer52" class="none">
+            <img src="./Images/HiLo/Cards/red_back.png" alt="red_back" id="dealer53" class="dealercard card">
+                <p id="dealertext" class="player-name">Dealer</p>  
+        </div>
+        <div class="div-center">
+            <button id="hit" class="button"><label for="hit">Hit</label></button>
+            <button id="stand" class="button">Stand</button>
+            <!-- <button id="split" class="button" disabled><label for="split">Split</label></button> -->
+            <button id="double-down" class="button" disabled>Double down</button>
+            <button id="insurance" class="button" disabled>Insurance</button>
+            <button id="surrender" class="button">Surrender</button>
+        </div>
+        <div class="div-center">
+            <img src="./Images/HiLo/Cards/2C.png" alt="2C" id="player1" class="none">
+            <img src="./Images/HiLo/Cards/2D.png" alt="2D" id="player2" class="none">
+            <img src="./Images/HiLo/Cards/2H.png" alt="2H" id="player3" class="none">
+            <img src="./Images/HiLo/Cards/2S.png" alt="2S" id="player4" class="none">
+            <img src="./Images/HiLo/Cards/3C.png" alt="3C" id="player5" class="none">
+            <img src="./Images/HiLo/Cards/3D.png" alt="3D" id="player6" class="none">
+            <img src="./Images/HiLo/Cards/3H.png" alt="3H" id="player7" class="none">
+            <img src="./Images/HiLo/Cards/3S.png" alt="3S" id="player8" class="none">
+            <img src="./Images/HiLo/Cards/4C.png" alt="4C" id="player9" class="none">
+            <img src="./Images/HiLo/Cards/4D.png" alt="4D" id="player10" class="none">
+            <img src="./Images/HiLo/Cards/4H.png" alt="4H" id="player11" class="none">
+            <img src="./Images/HiLo/Cards/4S.png" alt="4S" id="player12" class="none">
+            <img src="./Images/HiLo/Cards/5C.png" alt="5C" id="player13" class="none">
+            <img src="./Images/HiLo/Cards/5D.png" alt="5D" id="player14" class="none">
+            <img src="./Images/HiLo/Cards/5H.png" alt="5H" id="player15" class="none">
+            <img src="./Images/HiLo/Cards/5S.png" alt="5S" id="player16" class="none">
+            <img src="./Images/HiLo/Cards/6C.png" alt="6C" id="player17" class="none">
+            <img src="./Images/HiLo/Cards/6D.png" alt="6D" id="player18" class="none">
+            <img src="./Images/HiLo/Cards/6H.png" alt="6H" id="player19" class="none">
+            <img src="./Images/HiLo/Cards/6S.png" alt="6S" id="player20" class="none">
+            <img src="./Images/HiLo/Cards/7C.png" alt="7C" id="player21" class="none">
+            <img src="./Images/HiLo/Cards/7D.png" alt="7D" id="player22" class="none">
+            <img src="./Images/HiLo/Cards/7H.png" alt="7H" id="player23" class="none">
+            <img src="./Images/HiLo/Cards/7S.png" alt="7S" id="player24" class="none">
+            <img src="./Images/HiLo/Cards/8C.png" alt="8C" id="player25" class="none">
+            <img src="./Images/HiLo/Cards/8D.png" alt="8D" id="player26" class="none">
+            <img src="./Images/HiLo/Cards/8H.png" alt="8H" id="player27" class="none">
+            <img src="./Images/HiLo/Cards/8S.png" alt="8S" id="player28" class="none">
+            <img src="./Images/HiLo/Cards/9C.png" alt="9C" id="player29" class="none">
+            <img src="./Images/HiLo/Cards/9D.png" alt="9D" id="player30" class="none">
+            <img src="./Images/HiLo/Cards/9H.png" alt="9H" id="player31" class="none">
+            <img src="./Images/HiLo/Cards/9S.png" alt="9S" id="player32" class="none">
+            <img src="./Images/HiLo/Cards/10C.png" alt="10C" id="player33" class="none">
+            <img src="./Images/HiLo/Cards/10D.png" alt="10D" id="player34" class="none">
+            <img src="./Images/HiLo/Cards/10H.png" alt="10H" id="player35" class="none">
+            <img src="./Images/HiLo/Cards/10S.png" alt="10S" id="player36" class="none">
+            <img src="./Images/HiLo/Cards/JC.png" alt="JC" id="player37" class="none">               
+            <img src="./Images/HiLo/Cards/JD.png" alt="JD" id="player38" class="none">
+            <img src="./Images/HiLo/Cards/JH.png" alt="JH" id="player39" class="none">
+            <img src="./Images/HiLo/Cards/JS.png" alt="JS" id="player40" class="none">
+            <img src="./Images/HiLo/Cards/KC.png" alt="KC" id="player41" class="none">
+            <img src="./Images/HiLo/Cards/KD.png" alt="KD" id="player42" class="none">
+            <img src="./Images/HiLo/Cards/KH.png" alt="KH" id="player43" class="none">
+            <img src="./Images/HiLo/Cards/KS.png" alt="KS" id="player44" class="none">
+            <img src="./Images/HiLo/Cards/QC.png" alt="QC" id="player45" class="none">
+            <img src="./Images/HiLo/Cards/QD.png" alt="QD" id="player46" class="none">
+            <img src="./Images/HiLo/Cards/QH.png" alt="QH" id="player47" class="none">
+            <img src="./Images/HiLo/Cards/QS.png" alt="QS" id="player48" class="none">
+            <img src="./Images/HiLo/Cards/AC.png" alt="AC" id="player49" class="none">
+            <img src="./Images/HiLo/Cards/AD.png" alt="AD" id="player50" class="none">
+            <img src="./Images/HiLo/Cards/AH.png" alt="AH" id="player51" class="none">
+            <img src="./Images/HiLo/Cards/AS.png" alt="AS" id="player52" class="none">
+            <img src="./Images/HiLo/Cards/red_back.png" alt="red_back" id="player53" class="playercard card">
+                <p id="player-text" class="player-name">Player</p>        
+        </div>
+        <div class="div-center">
+            <p class="player-value" id="player-value"></p>
+        </div>
+    <section class="none" id="endscreen">
+        <p class="endscreen-text" id="endscreen-text"></p>
+    </section>
+</body>
+</html>

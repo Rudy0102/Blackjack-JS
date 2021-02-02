@@ -1,0 +1,76 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color:#2a5421;
+}
+.none{              /* Hides element completely */
+    display: none;
+}
+.hide{              /* Reserve place for element */
+    visibility: hidden;
+}
+.playercard{
+    display: block;
+    visibility: visible;
+    margin: 1%;
+    padding: 2% 0;
+    width: 9%;
+    height: auto;
+}
+.div-cards{
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+}
+.dealercard{
+    display: block;
+    visibility: visible;
+    margin: 1%;
+    padding: 2% 0;
+    width: 9%;
+    height: auto;
+}
+.div-center{
+    display: flex;
+    justify-content: center;
+}
+.button{
+    width: 8%;
+    height: auto;
+    padding: 1%;
+    margin: 1%;
+}
+.player-value{
+    display: flex;
+    justify-content: center;
+    background-color: #FFF;
+    width: 10%;
+}
+.dealer-value{
+    display: flex;
+    justify-content: center;
+    background-color: #FFF;
+    width: 10%;
+    margin-top: 1%;
+}
+.player-name{
+    font-size: 200%;
+    color: #FFF;
+}
+.endscreen{
+    position: fixed;
+    display: flex;
+    top: 0%; bottom: 0%; left: 0%; right: 0%;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.9);
+    justify-content: center;
+}
+.endscreen-text{
+    color: #FFF;
+    position: relative;
+    top: 40%;
+    font-size: 500%;
+}
