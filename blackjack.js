@@ -23,103 +23,118 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
         counter++;
     }
     function DisableButtons(x){
-        if (x===undefined){y=true}
-        else{y=false};
-        button_doubledown.disabled=y;
-        button_hit.disabled=y;
-        button_insurance.disabled=y;
-        button_stand.disabled=y;
-        button_surrender.disabled=y;
+        button_doubledown.disabled=x;
+        button_hit.disabled=x;
+        button_insurance.disabled=x;
+        button_stand.disabled=x;
+        button_surrender.disabled=x;
     };
-    function GetsValue(Aceone){             // ANCHOR Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
-        let y=0;
-        let z=0;
-        let array1=player.cards;
-        for (let i = 0; i < dealer.cards.length; i++) {
-            dealer.values[i]=CheckValue(dealer.cards[i]);
-            let x=dealer.values[i];
-            z+=x
-        }
-        for (let i = 0; i < array1.length; i++) {
-            let x;
-            if (player.cards[i]===Aceone) {
-                player.values[i]=1;
-                x=player.values[i];
+    function GetsValue(a,Aceone){             // ANCHOR Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
+        for (let i = 0; i < a.cards.length; i++) {
+            if (a.values[i]===11&&Aceone===true) {
+                a.values[i]=1;
+                x=a.values[i];
             } else {
-                player.values[i]=CheckValue(player.cards[i]);
-                x=player.values[i];
+                a.values[i]=CheckValue(a.cards[i]);
             }
-            y+=x
         }
-        player.sum=y;
-        dealer.sum=z;
-        function CheckValue(x){
-            switch (true) {
-                case(x<5) :
-                    return 2;
-                case(x<9) :
-                    return 3;
-                case(x<13) :
-                    return 4;
-                case(x<17) :
-                    return 5;
-                case(x<21) :
-                    return 6;
-                case(x<25) :
-                    return 7;
-                case(x<29) :
-                    return 8;
-                case(x<33) :
-                    return 9;
-                case(x<49) :
-                    return 10;
-                case(x<53) :
-                    return 11;              
+        let y=0;
+        a.values.forEach(x =>{
+            y+=x;
+        })
+        a.sum=y;
+    function CheckValue(x){
+        switch (true) {
+            case(x<5) :
+                return 2;
+            case(x<9) :
+                return 3;
+            case(x<13) :
+                return 4;
+            case(x<17) :
+                return 5;
+            case(x<21) :
+                return 6;
+            case(x<25) :
+                return 7;
+            case(x<29) :
+                return 8;
+            case(x<33) :
+                return 9;
+            case(x<49) :
+                return 10;
+            case(x<53) :
+                return 11;              
                 }
             }
 
     }
-    function Show_endscreen(x){
-        if(x===undefined){
-            endscreen.className="endscreen";
+    function Show_endscreen(x){                     //ANCHOR PB=PLayerBLackjack, DB=DealerBlackjack
+        endscreen.className="endscreen";
+        document.getElementById("dealer-value").classList="dealer-value";           //TODO Make a function showing cards, rather than copying the same lines
+        document.getElementById("dealer"+dealer.cards[1]).className="dealercard";
+        document.getElementById("dealer53").className="none";
+        switch(x){
+            case "DB":
+                endscreen_text.innerHTML="Dealer Blackjack!";
+                break;
+            case "PB":
+                endscreen_text.innerHTML="Blackjack!";
+                break;
+            case "Push":
+                endscreen_text.innerHTML="Push!";
+                break;
+            case "Bust":
+                endscreen_text.innerHTML="Bust!";
+                break;
+            case "DBust":
+                endscreen_text.innerHTML="Dealer Bust!";
+                break;            
+            case "Show":
+                endscreen.className="none";
+                break;
+                                   
         }
+    }
+    function CheckBlackjack(){
+        if (player.sum===21&&dealer.sum!=21){               
+            Show_endscreen("PB");
+            DisableButtons(true);
+        }
+        else if(dealer.values[0]===11&&dealer.sum===21){    
+            if(player.sum==21){Show_endscreen("Push")}
         else{
-            endscreen.className="none";
+                Show_endscreen("DB");
+            }
+            document.getElementById("dealer"+dealer.cards[1]).className="dealercard";
+            document.getElementById("dealer53").className="none";
+            DisableButtons(true)
         }
+    }
+    function WhoWins(){
+
     }
     function MainGame(button){                          //ANCHOR Main Function
         switch (button){
             case undefined:{
                 //Get 2 cards for each player
                 // console.log(button)
+                document.getElementById("dealer-value").classList="none";
                 do {
                     dealer.cards=[RandomGenerator(),RandomGenerator()];
                 } while (dealer.cards[0]===dealer.cards[1]);
                 do {
                     player.cards=[RandomGenerator(),RandomGenerator()];
                 } while (player.cards[0]===player.cards[1]);
-                GetsValue();
+                GetsValue(player); GetsValue(dealer);
+                CheckBlackjack();
                 document.getElementById("dealer"+dealer.cards[0]).className="dealercard";
                 document.getElementById("player"+player.cards[0]).className="playercard";
                 document.getElementById("player"+player.cards[1]).className="playercard";
                 document.getElementById("player53").className="none";
                 // console.log(player);
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
-                // document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-                if (player.sum===21&&dealer.sum!=21){               //Blackjack for player TODO
-                    Show_endscreen();
-                    endscreen_text.innerHTML="Blackjack!";
-                    DisableButtons();
-                }
-                else if(dealer.values[0]===11&&dealer.sum===21){
-                    if(player.sum==21){alert("Push!")}
-                    else{
-                        Show_endscreen();
-                        endscreen_text.innerHTML="Dealer Blackjack!";}
-                    document.getElementById("dealer"+dealer.cards[1]).className="dealercard";
-                    document.getElementById("dealer53").className="none";
-                    DisableButtons()
-                }
+                document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
                 break;
             }
             case "hit":{
@@ -133,30 +148,45 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                     }
                 }
                 document.getElementById("player"+player.cards[x]).className="playercard";
-                GetsValue();
+                GetsValue(player);
                 if (player.sum>21) {
-                    for (let i = 0; i < player.values.length; i++) {
-                        if (player.values[i]===11){
-                            Aceone=player.cards[i];
-                            GetsValue(Aceone);
-                        }
-                    }
+                    GetsValue(player,true);
                     if (player.sum>21) {
-                        Show_endscreen();
-                        endscreen_text.innerHTML="Bust";
-                        DisableButtons();
+                        Show_endscreen("Bust");
+                        DisableButtons(true);
                         }
                 }
                 counter++;
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
-                // document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
+                document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
                 break;
             }
             case "stand":{
-                //TODO if every player stands do dealers turn
+                //ANCHOR if every player stands do dealers turn
                 console.log(button);
-                DisableButtons();
-
+                DisableButtons(true);
+                let ends=false
+                do{
+                    let x=dealer.cards.length;
+                    if (dealer.sum>=17) {
+                        for (let i = 0; i < x; i++) {
+                            document.getElementById("dealer"+dealer.cards[i]).className="dealercard";
+                            document.getElementById("dealer53").className="none";
+                        }
+                        ends=true;
+                    }
+                    else{
+                        dealer.cards[x]=RandomGenerator();
+                        for (let i = 0; i < x; i++) {
+                            if (dealer.cards[i]===dealer.cards[x]) {
+                                dealer.cards[x]=RandomGenerator();
+                            }
+                        }
+                    }
+                    GetsValue(player); GetsValue(dealer);
+                }while(ends===false);
+                if(dealer.sum>=21){Show_endscreen("DBust")};
+                WhoWins();  //TODO Who wins+endscreen
                 counter++;
                 break;
             }
@@ -197,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     const button_insurance=document.getElementById("insurance")
     button_insurance.addEventListener("click",MainGame.bind(this,"insurance"));
     const endscreen=document.getElementById("endscreen");
-    endscreen.addEventListener("click",Show_endscreen.bind(this,"show"));
+    endscreen.addEventListener("click",Show_endscreen.bind(this,"Show"));
     const endscreen_text=document.getElementById("endscreen-text");
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
@@ -205,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     // let player=window.prompt("Enter your name: ")
     const player=new Player();
     console.log(player);
+    console.log(dealer);
     let counter=1;
 
     MainGame();
