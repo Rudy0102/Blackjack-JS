@@ -7,10 +7,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             this.cards = new Array();
             this.values = new Array();
             this.sum = 0;
-            // thisplayer.cards=new Array();
-            // thisplayer.values=new Array();
-            // thisplayer.sum=0;
-            // this.counter=1;
+            this.counter = 0;     //ANCHOR It will help not get stack error in GetValue()
         }
     }
     function CheckInsurance() {
@@ -29,20 +26,39 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
         button_stand.disabled=x;
         button_surrender.disabled=x;
     };
-    function GetsValue(a,Aceone){             // ANCHOR Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
+    function GetsValue(a){             // ANCHOR Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
-            if (a.values[i]===11&&Aceone===true) {
-                a.values[i]=1;
-                x=a.values[i];
-            } else {
                 a.values[i]=CheckValue(a.cards[i]);
             }
-        }
         let y=0;
         a.values.forEach(x =>{
             y+=x;
         })
+        if (y>21){
+            do{
+                z=Aceone(a);
+                if(z[0]!==0){
+                    y=z[0];
+                }
+            }while(z[0]>21||z[1]===true)}
         a.sum=y;
+        function Aceone(a){
+            let y=0;
+            let Ace=true
+            for (let i = 0; i < a.cards.length; i++) {
+                if (a.values[i]===11){
+                    a.values[i]=1;
+                    y=0;
+                    a.values.forEach(x =>{
+                        y+=x;
+                    });
+                    Ace=true;
+                    break;
+                }
+                else{Ace=false;}
+            }
+        return [y,Ace];
+        }
     function CheckValue(x){
         switch (true) {
             case(x<5) :
@@ -84,6 +100,12 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             case "Push":
                 endscreen_text.innerHTML="Push!";
                 break;
+            case "PW":
+                endscreen_text.innerHTML="You won!";
+                break;
+            case "DW":
+                endscreen_text.innerHTML="You lost";
+                break;
             case "Bust":
                 endscreen_text.innerHTML="Bust!";
                 break;
@@ -92,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 break;            
             case "Show":
                 endscreen.className="none";
+                //TODO DisableButtons(false);
                 break;
                                    
         }
@@ -112,7 +135,17 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
         }
     }
     function WhoWins(){
-
+        switch (true) {
+            case dealer.sum===player.sum:   //Push
+                Show_endscreen("Push")
+                break;
+            case dealer.sum>player.sum:     //Dealer wins
+                Show_endscreen("DW")
+                break;
+            case dealer.sum<player.sum:     //Player wins
+                Show_endscreen("PW")
+                break;
+        }
     }
     function MainGame(button){                          //ANCHOR Main Function
         switch (button){
@@ -126,7 +159,8 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 do {
                     player.cards=[RandomGenerator(),RandomGenerator()];
                 } while (player.cards[0]===player.cards[1]);
-                GetsValue(player); GetsValue(dealer);
+                GetsValue(player); 
+                GetsValue(dealer);
                 CheckBlackjack();
                 document.getElementById("dealer"+dealer.cards[0]).className="dealercard";
                 document.getElementById("player"+player.cards[0]).className="playercard";
@@ -150,12 +184,9 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 document.getElementById("player"+player.cards[x]).className="playercard";
                 GetsValue(player);
                 if (player.sum>21) {
-                    GetsValue(player,true);
-                    if (player.sum>21) {
-                        Show_endscreen("Bust");
-                        DisableButtons(true);
-                        }
-                }
+                    Show_endscreen("Bust");
+                    DisableButtons(true);
+                    }
                 counter++;
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
@@ -186,7 +217,9 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                     GetsValue(player); GetsValue(dealer);
                 }while(ends===false);
                 if(dealer.sum>=21){Show_endscreen("DBust")};
-                WhoWins();  //TODO Who wins+endscreen
+                document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
+                document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
+                WhoWins();  //ANCHOR Who wins+endscreen
                 counter++;
                 break;
             }
@@ -231,8 +264,8 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     const endscreen_text=document.getElementById("endscreen-text");
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
-    const dealer=new Player();
     // let player=window.prompt("Enter your name: ")
+    const dealer=new Player();
     const player=new Player();
     console.log(player);
     console.log(dealer);
