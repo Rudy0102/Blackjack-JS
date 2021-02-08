@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     }
     class Player {
         constructor() {
+            this.name = "player";
             this.cards = new Array();
             this.values = new Array();
             this.sum = 0;
@@ -20,11 +21,8 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
         counter++;
     }
     function DisableButtons(x){
-        button_doubledown.disabled=x;
         button_hit.disabled=x;
-        button_insurance.disabled=x;
         button_stand.disabled=x;
-        button_surrender.disabled=x;
     };
     function GetsValue(a){             // ANCHOR Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
@@ -85,6 +83,13 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             }
 
     }
+    function ClearCards(card,name){
+        let playername=name;
+        card.forEach(element => {
+            console.log(element);
+            document.getElementById(playername+element).className="none";
+        })
+    }
     function Show_endscreen(x){                     //ANCHOR PB=PLayerBLackjack, DB=DealerBlackjack
         endscreen.className="endscreen";
         document.getElementById("dealer-value").classList="dealer-value";           //TODO Make a function showing cards, rather than copying the same lines
@@ -114,14 +119,17 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 break;            
             case "Show":
                 endscreen.className="none";
-                //TODO DisableButtons(false);
+                // ClearCards(player.cards,"dealer"); TODO
+                // ClearCards(dealer.cards,"player");
+                // MainGame();
+                // DisableButtons(false);
                 break;
                                    
         }
     }
     function CheckBlackjack(){
         if (player.sum===21&&dealer.sum!=21){               
-            Show_endscreen("PB");
+            Show_endscreen("PB");   //Player Blackjack
             DisableButtons(true);
         }
         else if(dealer.values[0]===11&&dealer.sum===21){    
@@ -169,6 +177,14 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 // console.log(player);
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
+                if(counter===1){GetPlayerName()};
+                function GetPlayerName(){
+                    do{
+                    player.name=window.prompt("What's your name? (Max 10 characters)");
+                    }while(player.name.length>10);
+                    document.getElementById("player-text").innerHTML=player.name;
+                };
+                counter=1;
                 break;
             }
             case "hit":{
@@ -199,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 let ends=false
                 do{
                     let x=dealer.cards.length;
-                    if (dealer.sum>=17) {
+                    if (dealer.sum>=17||dealer.sum>=21) {
                         for (let i = 0; i < x; i++) {
                             document.getElementById("dealer"+dealer.cards[i]).className="dealercard";
                             document.getElementById("dealer53").className="none";
@@ -216,10 +232,10 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                     }
                     GetsValue(player); GetsValue(dealer);
                 }while(ends===false);
-                if(dealer.sum>=21){Show_endscreen("DBust")};
+                if(dealer.sum>21){Show_endscreen("DBust")}
+                else{WhoWins();}  //ANCHOR Who wins+endscreen}
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-                WhoWins();  //ANCHOR Who wins+endscreen
                 counter++;
                 break;
             }
