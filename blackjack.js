@@ -8,8 +8,13 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             this.cards = new Array();
             this.values = new Array();
             this.sum = 0;
-            this.counter = 0;     //ANCHOR It will help not get stack error in GetValue()
         }
+    }
+    function Restart() {
+        ClearCards(player.cards,"player");
+        ClearCards(dealer.cards,"dealer");
+        DisableButtons(false);
+        MainGame();
     }
     function CheckInsurance() {
         if (dealer.values[0]===11&&counter===1) {
@@ -86,8 +91,8 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     function ClearCards(card,name){
         let playername=name;
         card.forEach(element => {
-            console.log(element);
-            document.getElementById(playername+element).className="none";
+            //console.log(document.getElementById(playername+element));
+            const actualcard=document.getElementById(playername+element).className="none";
         })
     }
     function Show_endscreen(x){                     //ANCHOR PB=PLayerBLackjack, DB=DealerBlackjack
@@ -119,10 +124,10 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 break;            
             case "Show":
                 endscreen.className="none";
-                // ClearCards(player.cards,"dealer"); TODO
-                // ClearCards(dealer.cards,"player");
-                // MainGame();
-                // DisableButtons(false);
+                button_list.forEach(element => {
+                    element.className="none"
+                })
+                button_retry.className="button";
                 break;
                                    
         }
@@ -160,6 +165,16 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             case undefined:{
                 //Get 2 cards for each player
                 // console.log(button)
+                // player.cards.forEach(x => x=null);
+                // player.values.forEach(x => x=null);
+                // dealer.cards.forEach(x => x=null);
+                // dealer.values.forEach(x => x=null);
+                player.cards.length=2;
+                player.values.length=2;
+                dealer.cards.length=2;
+                dealer.values.length=2;
+                // console.log(dealer,player);
+                button_list.forEach(element => {element.className="button"})
                 document.getElementById("dealer-value").classList="none";
                 do {
                     dealer.cards=[RandomGenerator(),RandomGenerator()];
@@ -171,13 +186,14 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 GetsValue(dealer);
                 CheckBlackjack();
                 document.getElementById("dealer"+dealer.cards[0]).className="dealercard";
+                document.getElementById("dealer53").className="dealercard";
                 document.getElementById("player"+player.cards[0]).className="playercard";
                 document.getElementById("player"+player.cards[1]).className="playercard";
                 document.getElementById("player53").className="none";
                 // console.log(player);
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-                if(counter===1){GetPlayerName()};
+                if(counter===1){GetPlayerName()};   //If it first time player starts playing ask for his/her name
                 function GetPlayerName(){
                     do{
                     player.name=window.prompt("What's your name? (Max 10 characters)");
@@ -189,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             }
             case "hit":{
                 //ANCHOR give player additional card
-                console.log(button);
+                // console.log(button);
                 let x=player.cards.length;
                 player.cards[x]=RandomGenerator();
                 for (let i = 0; i < x; i++) {
@@ -206,11 +222,12 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 counter++;
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
+                console.log(dealer,player);
                 break;
             }
             case "stand":{
                 //ANCHOR if every player stands do dealers turn
-                console.log(button);
+                // console.log(button);
                 DisableButtons(true);
                 let ends=false
                 do{
@@ -237,6 +254,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
                 counter++;
+                // console.log(dealer,player);
                 break;
             }
             case "double-down":{
@@ -278,13 +296,16 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     const endscreen=document.getElementById("endscreen");
     endscreen.addEventListener("click",Show_endscreen.bind(this,"Show"));
     const endscreen_text=document.getElementById("endscreen-text");
+    const button_retry=document.getElementById("retry");
+    button_retry.addEventListener("click", function(){button_retry.className="none";Restart()})    //Hides retry button and calls function MainGame
+    button_list=[button_hit,button_insurance,button_surrender,button_stand,button_doubledown]
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")
     const dealer=new Player();
     const player=new Player();
-    console.log(player);
-    console.log(dealer);
+    // console.log(player);
+    // console.log(dealer);
     let counter=1;
 
     MainGame();
