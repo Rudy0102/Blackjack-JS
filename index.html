@@ -18,6 +18,9 @@
         <div class="div-center">
             <p class="none" id="dealer-value"></p>
         </div>
+        <div class="div-playertext">
+            <p id="dealertext" class="player-name">Dealer</p>  
+        </div>
         <div class="div-center">
             <img src="./Images/HiLo/Cards/2C.png" alt="2C" id="dealer1" class="none">
             <img src="./Images/HiLo/Cards/2D.png" alt="2D" id="dealer2" class="none">
@@ -71,8 +74,7 @@
             <img src="./Images/HiLo/Cards/AD.png" alt="AD" id="dealer50" class="none">
             <img src="./Images/HiLo/Cards/AH.png" alt="AH" id="dealer51" class="none">
             <img src="./Images/HiLo/Cards/AS.png" alt="AS" id="dealer52" class="none">
-            <img src="./Images/HiLo/Cards/red_back.png" alt="red_back" id="dealer53" class="dealercard card">
-                <p id="dealertext" class="player-name">Dealer</p>  
+            <img src="./Images/HiLo/Cards/red_back.png" alt="red_back" id="dealer53" class="dealercard">
         </div>
         <div class="div-center">
             <button id="hit" class="button"><label for="hit">Hit</label></button>
@@ -81,7 +83,7 @@
             <button id="double-down" class="button" disabled>Double down</button>
             <button id="insurance" class="button" disabled>Insurance</button>
             <button id="surrender" class="button">Surrender</button>
-            <button id="retry" class="none">Retry</button>
+            <button id="retry" class="none">Retry</button><br>
         </div>
         <div class="div-center">
             <img src="./Images/HiLo/Cards/2C.png" alt="2C" id="player1" class="none">
@@ -136,13 +138,16 @@
             <img src="./Images/HiLo/Cards/AD.png" alt="AD" id="player50" class="none">
             <img src="./Images/HiLo/Cards/AH.png" alt="AH" id="player51" class="none">
             <img src="./Images/HiLo/Cards/AS.png" alt="AS" id="player52" class="none">
-            <img src="./Images/HiLo/Cards/red_back.png" alt="red_back" id="player53" class="playercard card">
-            <div>
-                <p id="player-text" class="player-name">Player</p>        
-            </div>
+            <img src="./Images/HiLo/Cards/red_back.png" alt="red_back" id="player53" class="playercard">
+        </div>
+        <div class="div-playertext">
+            <p id="player-text" class="player-name">Player</p>        
         </div>
         <div class="div-center">
             <p class="player-value" id="player-value"></p>
+        </div>
+        <div class="div-balance">
+            <p><span class="balance-span1">Actual balance: </span><span id="playerbalance" class="balance-span1"></span></p>
         </div>
     </section>
     <div class="none" id="endscreen">

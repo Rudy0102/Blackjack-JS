@@ -4,6 +4,7 @@
 }
 body{
     background-color:#2a5421;
+    overflow: hidden; /* Hides scrollbar */
 }
 .none{              /* Hides element completely */
     display: none;
@@ -18,9 +19,10 @@ body{
     display: block;
     visibility: visible;
     margin: 1%;
-    padding: 2% 0;
-    width: 9%;
+    /* padding: 1% 0; */
+    width: 7%;
     height: auto;
+    min-width: 84px;
 }
 .div-cards{
     display: flex;
@@ -31,19 +33,45 @@ body{
     display: block;
     visibility: visible;
     margin: 1%;
-    padding: 2% 0;
-    width: 9%;
+    /* padding: 1% 0; */
+    width: 7%;
     height: auto;
+    min-width: 84px;
 }
 .div-center{
     display: flex;
     justify-content: center;
+    text-align: center;
+    min-width: 1200px;
+}
+.div-playertext{
+    min-width: 1200px;
+}
+.div-balance{
+    position: relative;
+    top: 20px;
+    float: left;
+    width: 100%;
+    text-align: center;
+    min-width: 1200px;
+}
+.div-balance p{
+    font-size: 150%;
+    color: #FFF;
+    margin: 1%;
+}
+.div-balance span{
+    /* font-size: 200%; */
+    color: #000;
+    background-color: #FFF;
+    padding: 0 1%;
 }
 .button{
-    width: 8%;
+    width: 6%;
     height: auto;
-    padding: 1%;
+    padding: 0.5%;
     margin: 1%;
+    min-width: 72px;
 }
 .player-value{
     display: flex;
@@ -61,6 +89,8 @@ body{
 .player-name{
     font-size: 200%;
     color: #FFF;
+    position: relative;
+    left: 60%;
 }
 .endscreen{
     position: fixed;
@@ -89,6 +119,12 @@ body{
 .mainmenu h1{
     font-size: 40px;
     color: #FFF;
+}
+@media (max-width: 1200px)
+{
+    body{
+        overflow-y: hidden;
+    };
 }
 /* .div-center div{
     height: 40px;

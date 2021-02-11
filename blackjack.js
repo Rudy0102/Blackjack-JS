@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that script will be started when all elements are loaded               //Made by Robert Żółtowski
+window.addEventListener("load", function Main(){   //Ensurees that script will be started when all elements are loaded               //Made by Robert Żółtowski
     function RandomGenerator() {                    //Generate values
         return Math.floor((Math.random() * 52) + 1); //In this program this function only need to generate beetwen 1 and 52
     }
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that
     function ButtonStart(){         //Button starting the game
         document.getElementById("mainmenu").className="none";
         document.getElementById("playscreen").className="playscreen";
+        Placebet();
         MainGame("start");
     }
     function CheckSpecialButtons() {
@@ -35,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that
     function DisableButtons(x){
         button_hit.disabled=x;
         button_stand.disabled=x;
+    };
+    function Placebet(){
+        
     };
     function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that
         let playername=name;
         card.forEach(element => {
             //console.log(document.getElementById(playername+element));
-            const actualcard=document.getElementById(playername+element).className="none";
+            document.getElementById(playername+element).className="none";
         })
     }
     function Show_endscreen(x){                     //PB=PLayerBLackjack, DB=DealerBlackjack
@@ -174,6 +178,16 @@ document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that
                 break;
         }
     }
+    function GetPlayerName(){
+        let i=0;
+        do{
+            if (i!=0){alert("Invalid name!")};
+            player.name=window.prompt("What's your name? (Max 10 characters, default: Player)");
+            if (player.name==""){player.name="Player"};
+            i++;
+        }while(player.name.length>10);
+        document.getElementById("player-text").innerHTML=player.name;
+    };
     function MainGame(button){                          //Main Function
         console.log(player.balance);
         switch (button){
@@ -208,17 +222,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that
                 // console.log(player);
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-                let i=0;
                 if(counter===1){GetPlayerName()};   //If it first time player starts playing ask for his/her name
-                function GetPlayerName(){
-                    do{
-                        if (i!=0){alert("Invalid name!")};
-                        player.name=window.prompt("What's your name? (Max 10 characters, default: Player)");
-                        if (player.name==""){player.name="Player"};
-                        i++;
-                    }while(player.name.length>10);
-                    document.getElementById("player-text").innerHTML=player.name;
-                };
                 counter=1;
                 break;
             }
@@ -320,11 +324,13 @@ document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that
     button_list=[button_hit,button_insurance,button_surrender,button_stand,button_doubledown]
     const button_start=document.getElementById("menustart");
     button_start.addEventListener("click",ButtonStart, false);
+    const player_balance=document.getElementById("playerbalance");
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")
     const dealer=new Player();
     const player=new Player();
+    player_balance.innerHTML=player.balance;
     // console.log(player);
     // console.log(dealer);
     let counter=1;
