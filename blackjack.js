@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensurees that script will be started when all elements are loaded               //Made by Robert Żółtowski
-    function RandomGenerator() {                    //ANCHOR Generate values
+document.addEventListener("DOMContentLoaded", function Main(){   //Ensurees that script will be started when all elements are loaded               //Made by Robert Żółtowski
+    function RandomGenerator() {                    //Generate values
         return Math.floor((Math.random() * 52) + 1); //In this program this function only need to generate beetwen 1 and 52
     }
     class Player {
@@ -8,15 +8,22 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             this.cards = new Array();
             this.values = new Array();
             this.sum = 0;
+            this.balance = 100.0;
+            this.actualbet = 0.0;
         }
     }
-    function Restart() {
+    function Restart() {    //Restarts the gmae
         ClearCards(player.cards,"player");
         ClearCards(dealer.cards,"dealer");
         DisableButtons(false);
-        MainGame();
+        MainGame("start");
     }
-    function CheckInsurance() {
+    function ButtonStart(){         //Button starting the game
+        document.getElementById("mainmenu").className="none";
+        document.getElementById("playscreen").className="playscreen";
+        MainGame("start");
+    }
+    function CheckSpecialButtons() {
         if (dealer.values[0]===11&&counter===1) {
             button_insurance.disabled=false;
         }
@@ -29,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
         button_hit.disabled=x;
         button_stand.disabled=x;
     };
-    function GetsValue(a){             // ANCHOR Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
+    function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
                 a.values[i]=CheckValue(a.cards[i]);
             }
@@ -95,32 +102,39 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             const actualcard=document.getElementById(playername+element).className="none";
         })
     }
-    function Show_endscreen(x){                     //ANCHOR PB=PLayerBLackjack, DB=DealerBlackjack
+    function Show_endscreen(x){                     //PB=PLayerBLackjack, DB=DealerBlackjack
         endscreen.className="endscreen";
-        document.getElementById("dealer-value").classList="dealer-value";           //TODO Make a function showing cards, rather than copying the same lines
+        document.getElementById("dealer-value").className="dealer-value";           //TODO Make a function showing cards, rather than copying the same lines
         document.getElementById("dealer"+dealer.cards[1]).className="dealercard";
         document.getElementById("dealer53").className="none";
         switch(x){
             case "DB":
                 endscreen_text.innerHTML="Dealer Blackjack!";
+                player.balance=player.balance-player.actualbet;
                 break;
             case "PB":
                 endscreen_text.innerHTML="Blackjack!";
+                player.balance=player.balance+(player.actualbet*1.5+player.actualbet);   //payout 3:2
                 break;
             case "Push":
                 endscreen_text.innerHTML="Push!";
+                player.balance=player.balance+player.actualbet;
                 break;
             case "PW":
                 endscreen_text.innerHTML="You won!";
+                player.balance=player.balance+(player.actualbet*2);
                 break;
             case "DW":
                 endscreen_text.innerHTML="You lost";
+                player.balance=player.balance-player.actualbet;
                 break;
             case "Bust":
                 endscreen_text.innerHTML="Bust!";
+                player.balance=player.balance-player.actualbet;
                 break;
             case "DBust":
                 endscreen_text.innerHTML="Dealer Bust!";
+                player.balance=player.balance+(player.actualbet*2);
                 break;            
             case "Show":
                 endscreen.className="none";
@@ -160,9 +174,10 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 break;
         }
     }
-    function MainGame(button){                          //ANCHOR Main Function
+    function MainGame(button){                          //Main Function
+        console.log(player.balance);
         switch (button){
-            case undefined:{
+            case "start":{
                 //Get 2 cards for each player
                 // console.log(button)
                 // player.cards.forEach(x => x=null);
@@ -193,10 +208,14 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 // console.log(player);
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
+                let i=0;
                 if(counter===1){GetPlayerName()};   //If it first time player starts playing ask for his/her name
                 function GetPlayerName(){
                     do{
-                    player.name=window.prompt("What's your name? (Max 10 characters)");
+                        if (i!=0){alert("Invalid name!")};
+                        player.name=window.prompt("What's your name? (Max 10 characters, default: Player)");
+                        if (player.name==""){player.name="Player"};
+                        i++;
                     }while(player.name.length>10);
                     document.getElementById("player-text").innerHTML=player.name;
                 };
@@ -204,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 break;
             }
             case "hit":{
-                //ANCHOR give player additional card
+                //give player additional card
                 // console.log(button);
                 let x=player.cards.length;
                 player.cards[x]=RandomGenerator();
@@ -222,11 +241,11 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                 counter++;
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-                console.log(dealer,player);
+                // console.log(dealer,player);
                 break;
             }
             case "stand":{
-                //ANCHOR if every player stands do dealers turn
+                //if every player stands do dealers turn
                 // console.log(button);
                 DisableButtons(true);
                 let ends=false
@@ -250,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
                     GetsValue(player); GetsValue(dealer);
                 }while(ends===false);
                 if(dealer.sum>21){Show_endscreen("DBust")}
-                else{WhoWins();}  //ANCHOR Who wins+endscreen}
+                else{WhoWins();}  //Who wins+endscreen}
                 document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
                 document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
                 counter++;
@@ -281,10 +300,10 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
             //     break;
             // }    
         }
-        CheckInsurance();
+        CheckSpecialButtons();
     }
     const button_stand=document.getElementById("stand")
-    button_stand.addEventListener("click",MainGame.bind(this,"stand"));
+    button_stand.addEventListener("click",MainGame.bind(this,"stand"));     //False means that functions isnt executed instantly
     const button_hit=document.getElementById("hit")
     button_hit.addEventListener("click",MainGame.bind(this,"hit"));
     const button_doubledown=document.getElementById("double-down")
@@ -297,8 +316,10 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     endscreen.addEventListener("click",Show_endscreen.bind(this,"Show"));
     const endscreen_text=document.getElementById("endscreen-text");
     const button_retry=document.getElementById("retry");
-    button_retry.addEventListener("click", function(){button_retry.className="none";Restart()})    //Hides retry button and calls function MainGame
+    button_retry.addEventListener("click",function(){button_retry.className="none";Restart()})    //Hides retry button and calls function MainGame
     button_list=[button_hit,button_insurance,button_surrender,button_stand,button_doubledown]
+    const button_start=document.getElementById("menustart");
+    button_start.addEventListener("click",ButtonStart, false);
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")
@@ -307,6 +328,4 @@ document.addEventListener("DOMContentLoaded", function Main(){   //ANCHOR Ensure
     // console.log(player);
     // console.log(dealer);
     let counter=1;
-
-    MainGame();
 }) 

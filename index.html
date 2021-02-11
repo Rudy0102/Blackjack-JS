@@ -8,8 +8,13 @@
     <script src="./blackjack.js" defer></script>
 </head>
 <body>
-    
-    <section class="playscreen">
+    <section class="mainmenu" id="mainmenu">
+        <h1>Blackjack</h3><br>
+        <button class="menubutton" id="menustart">Start the game</button><br>
+        <button class="menubutton" id="menuoptions">Options</button><br>
+        <button class="menubutton" id="menucredits">Credits</button><br>
+    </section>
+    <section class="none" id="playscreen">
         <div class="div-center">
             <p class="none" id="dealer-value"></p>
         </div>
@@ -139,8 +144,9 @@
         <div class="div-center">
             <p class="player-value" id="player-value"></p>
         </div>
-    <section class="none" id="endscreen">
-        <p class="endscreen-text" id="endscreen-text"></p>
     </section>
+    <div class="none" id="endscreen">
+        <p class="endscreen-text" id="endscreen-text"></p>
+    </div>
 </body>
 </html>

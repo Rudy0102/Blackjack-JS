@@ -11,6 +11,9 @@ body{
 .hide{              /* Reserve place for element */
     visibility: hidden;
 }
+.playscreen{
+    display: block;
+}
 .playercard{
     display: block;
     visibility: visible;
@@ -73,6 +76,19 @@ body{
     position: relative;
     top: 40%;
     font-size: 500%;
+}
+.mainmenu{
+    text-align: center;
+    margin: 10% 0;
+}
+.menubutton{
+    width: 15%;
+    padding: 25px 0;
+    margin: 15px 0;
+}
+.mainmenu h1{
+    font-size: 40px;
+    color: #FFF;
 }
 /* .div-center div{
     height: 40px;
