@@ -38,6 +38,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
         button_stand.disabled=x;
     };
     function Placebet(){
+        betscreen.classList="endscreen";
         
     };
     function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
@@ -325,6 +326,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     const button_start=document.getElementById("menustart");
     button_start.addEventListener("click",ButtonStart, false);
     const player_balance=document.getElementById("playerbalance");
+    const betscreen=document.getElementById("betscreen");
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")
