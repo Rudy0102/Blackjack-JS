@@ -42,6 +42,9 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
                 betscreen.classList="betscreen";
                 document.getElementById("bet-balance").innerHTML=player.balance;
                 break;
+            case "hide":
+                betscreen.classList="none";
+                break;
             case "whitechip":
                 break;
             case "yellowchip":
