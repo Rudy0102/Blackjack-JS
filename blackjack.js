@@ -21,7 +21,6 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     function ButtonStart(){         //Button starting the game
         document.getElementById("mainmenu").className="none";
         document.getElementById("playscreen").className="playscreen";
-        Placebet();
         MainGame("start");
     }
     function CheckSpecialButtons() {
@@ -37,9 +36,26 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
         button_hit.disabled=x;
         button_stand.disabled=x;
     };
-    function Placebet(){
-        betscreen.classList="endscreen";
-        
+    function Placebet(x){
+        switch (x){
+            case "show":
+                betscreen.classList="betscreen";
+                document.getElementById("bet-balance").innerHTML=player.balance;
+                break;
+            case "whitechip":
+                break;
+            case "yellowchip":
+                break;
+            case "redchip":
+                break;
+            case "bluechip":
+                break;
+            case "greenchip":
+                break;
+            case "blackchip":
+                break;
+        }
+
     };
     function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
@@ -199,6 +215,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
                 // player.values.forEach(x => x=null);
                 // dealer.cards.forEach(x => x=null);
                 // dealer.values.forEach(x => x=null);
+                Placebet("show");
                 player.cards.length=2;
                 player.values.length=2;
                 dealer.cards.length=2;
@@ -327,6 +344,18 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     button_start.addEventListener("click",ButtonStart, false);
     const player_balance=document.getElementById("playerbalance");
     const betscreen=document.getElementById("betscreen");
+    const whitechip=document.getElementById("whitechip");
+    whitechip.addEventListener("click",Placebet.bind(this,"whitechip"));
+    const yellowchip=document.getElementById("yellowchip");
+    yellowchip.addEventListener("click",Placebet.bind(this,"yellowchip"));
+    const redchip=document.getElementById("redchip");
+    redchip.addEventListener("click",Placebet.bind(this,"redchip"));
+    const bluechip=document.getElementById("bluechip");
+    bluechip.addEventListener("click",Placebet.bind(this,"bluechip"));
+    const greenchip=document.getElementById("greenchip");
+    greenchip.addEventListener("click",Placebet.bind(this,"greenchip"));
+    const blackchip=document.getElementById("blackchip");
+    blackchip.addEventListener("click",Placebet.bind(this,"blackchip"));
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")
