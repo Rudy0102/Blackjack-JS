@@ -62,7 +62,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     };
     function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
-                a.values[i]=CheckValue(a.cards[i]);
+                a.values[i]=CheckValue(a.cards[i]); //TODO 2 Aces at start gives hard 2 instead of soft 12
             }
         let y=0;
         a.values.forEach(x =>{
