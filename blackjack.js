@@ -9,7 +9,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
             this.values = new Array();
             this.sum = 0;
             this.balance = 100.0;
-            this.actualbet = 0.0;
+            this.actualbet = 0;
         }
     }
     function Restart() {    //Restarts the gmae
@@ -37,6 +37,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
         button_stand.disabled=x;
     };
     function Placebet(x){
+        let bet=player.actualbet;
         switch (x){
             case "show":
                 betscreen.classList="betscreen";
@@ -46,19 +47,43 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
                 betscreen.classList="none";
                 break;
             case "whitechip":
+                bet=+1;
+                addbet();
                 break;
             case "yellowchip":
+                bet=+5;
+                addbet();
                 break;
             case "redchip":
+                bet=+10;
+                addbet();
                 break;
             case "bluechip":
+                bet=+25;
+                addbet();
                 break;
             case "greenchip":
+                bet=+100;
+                addbet();
                 break;
             case "blackchip":
+                bet=+500;
+                addbet();
+                break;
+            case "betreset":
+                player.actualbet=0;
                 break;
         }
-
+        function addbet(){
+            if (player.actualbet>player.balance||player.actualbet+bet>player.balance){
+                alert("You can't bet more than you have")
+            }
+            else{
+                player.actualbet=player.actualbet+bet;  //Adds actual bet
+            }
+        }
+        actualbet.innerHTML=player.actualbet;
+        
     };
     function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
         for (let i = 0; i < a.cards.length; i++) {
@@ -210,6 +235,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     };
     function MainGame(button){                          //Main Function
         console.log(player.balance);
+        playerbet.innerHTML=player.actualbet;
         switch (button){
             case "start":{
                 //Get 2 cards for each player
@@ -359,6 +385,12 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     greenchip.addEventListener("click",Placebet.bind(this,"greenchip"));
     const blackchip=document.getElementById("blackchip");
     blackchip.addEventListener("click",Placebet.bind(this,"blackchip"));
+    const betreset=document.getElementById("BetReset");
+    betreset.addEventListener("click",Placebet.bind(this,"betreset"));
+    const betconfrim=document.getElementById("BetConfirm");
+    betconfrim.addEventListener("click",Placebet.bind(this,"hide"));
+    const actualbet=document.getElementById('actual-bet');
+    const playerbet=document.getElementById('player-bet');
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")

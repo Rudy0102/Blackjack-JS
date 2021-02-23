@@ -56,15 +56,15 @@ body{
     min-width: 1200px;
 }
 .div-balance p{
-    font-size: 150%;
+    /* font-size: 100%; */
     color: #FFF;
-    margin: 1%;
+    /* margin: 10px; */
 }
 .div-balance span{
     /* font-size: 200%; */
     color: #000;
     background-color: #FFF;
-    padding: 0 1%;
+    padding: 0 10px;
 }
 .button{
     width: 6%;
