@@ -16,12 +16,12 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
         ClearCards(player.cards,"player");
         ClearCards(dealer.cards,"dealer");
         DisableButtons(false);
-        MainGame("start");
+        Placebet("show");
     }
     function ButtonStart(){         //Button starting the game
         document.getElementById("mainmenu").className="none";
         document.getElementById("playscreen").className="playscreen";
-        MainGame("start");
+        Placebet("show");
     }
     function CheckSpecialButtons() {
         if (dealer.values[0]===11&&counter===1) {
@@ -44,7 +44,13 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
                 document.getElementById("bet-balance").innerHTML=player.balance;
                 break;
             case "hide":
-                betscreen.classList="none";
+                if (player.actualbet==0){
+                    alert("You can't bet 0!")
+                }
+                else {
+                    betscreen.classList="none";
+                    MainGame("start");
+                };
                 break;
             case "whitechip":
                 bet=+1;
@@ -83,6 +89,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
             }
         }
         actualbet.innerHTML=player.actualbet;
+        playerbet.innerHTML=player.actualbet;
         
     };
     function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
@@ -187,6 +194,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
                 break;            
             case "Show":
                 endscreen.className="none";
+                player.actualbet=0;
                 button_list.forEach(element => {
                     element.className="none"
                 })
@@ -235,7 +243,6 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     };
     function MainGame(button){                          //Main Function
         console.log(player.balance);
-        playerbet.innerHTML=player.actualbet;
         switch (button){
             case "start":{
                 //Get 2 cards for each player
@@ -244,7 +251,6 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
                 // player.values.forEach(x => x=null);
                 // dealer.cards.forEach(x => x=null);
                 // dealer.values.forEach(x => x=null);
-                Placebet("show");
                 player.cards.length=2;
                 player.values.length=2;
                 dealer.cards.length=2;
@@ -390,7 +396,7 @@ window.addEventListener("load", function Main(){   //Ensurees that script will b
     const betconfrim=document.getElementById("BetConfirm");
     betconfrim.addEventListener("click",Placebet.bind(this,"hide"));
     const actualbet=document.getElementById('actual-bet');
-    const playerbet=document.getElementById('player-bet');
+    const playerbet=document.getElementById('playerbet');
     // let button_split=document.getElementById("split")
     // button_split.addEventListener("click",MainGame.bind(this,"split"));
     // let player=window.prompt("Enter your name: ")
