@@ -44,6 +44,17 @@ body{
     text-align: center;
     min-width: 1200px;
 }
+.div-center p{
+    /* font-size: 100%; */
+    /* color: #FFF; */
+    padding:  5px 10px;
+}
+.div-center span{
+    /* font-size: 200%; */
+    color: #000;
+    /* background-color: #FFF; */
+    padding: 5px 10px;
+}
 .div-playertext{
     min-width: 1200px;
 }
@@ -58,13 +69,13 @@ body{
 .div-balance p{
     /* font-size: 100%; */
     color: #FFF;
-    /* margin: 10px; */
+    padding: 10px;
 }
 .div-balance span{
     /* font-size: 200%; */
     color: #000;
     background-color: #FFF;
-    padding: 0 10px;
+    padding: 5px 10px;
 }
 .button{
     width: 6%;
