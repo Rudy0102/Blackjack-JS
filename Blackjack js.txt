@@ -1,0 +1,20 @@
+Blackjack JavaScript Game
+1. Players blackjack = winning of 3:2
+2. Players other winning hands = winning 1:1
+3. All other situations dealer wins
+4. If dealer has an ace he will chech for blackjack in which case all player hands lose, except another blackjack. However, should the dealer have an ace exposed, players may take “insurance,” a side-bet that pays 2-1 and hedges the initial bet against a dealer blackjack.
+Options for player in-game
+1. Stand. If the player decides their hand is sufficiently strong, they may opt to take no additional action.
+2. Hit. Players may draw additional cards until they either bust or decide the stand.
+3. Double down. If a player’s hand warrants, they may opt to double their current bet and receive one additional card. This option is only offered on the first two cards, and in some cases on the first two cards after splitting.
+4. Split. When a player’s first two cards are of equal point value, he may separate them into two hands with each card being the first card of a new hand. To split, the player must make another wager of equal value to the initial wager for the second hand. In cases where another identical point valued card is dealt following the split, re-splitting may be allowed. (Re-splitting aces is often an exception.) When allowed, players may also double down after splitting.
+5. Surrender. In certain versions of blackjack, players may surrender or yield a poor hand on their first two cards, rather than play against a potentially superior hand. Surrendered hands return ½ of the wager to the player.
+6. Insurance is a special side bet that lets the player stake half their original bet against the dealer hitting a natural blackjack (a hand containing an ace and a picture card for a total of 21). Insurance can only be taken if the dealer shows an ace.
+Dealer - the dealer must hit until his cards reach a total value of 17 or more. In some casinos or game versions, if a dealer is dealt a soft 17 (an ace plus cards totaling six additional points) he must also hit. If the dealer busts all players active in the hand win automatically.
+
+
+
+Browser wokrs until size 930x520 px, looks normal
+
+
+2 asy daja 2, sprawdzic czemu
