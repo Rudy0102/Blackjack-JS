@@ -278,7 +278,6 @@ function MainGame(button){                          //Main Function
             // document.getElementById("dealer"+dealer.cards[1]).className="dealercard";
             document.getElementById("dealer53").className="dealercard";
             // document.getElementById("dealer53").className="none";
-            DisableButtons(true);
             document.getElementById("dealer"+dealer.cards[0]).className="dealercard";
             document.getElementById("player"+player.cards[0]).className="playercard";
             document.getElementById("player"+player.cards[1]).className="playercard";
