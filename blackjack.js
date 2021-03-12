@@ -11,6 +11,7 @@ class Player {
         this.balance = 100.0;
         this.actualbet = 0;
         this.hasblackjack = false;
+        this.name = false;
     }
 }
 function Restart() {    //Restarts the gmae
@@ -285,7 +286,9 @@ function MainGame(button){                          //Main Function
             // console.log(player);
             document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
             document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-            if(counter===1){GetPlayerName()};   //If it first time player starts playing ask for his/her name
+            if(player.name==false){
+                GetPlayerName();
+                player.name = true;}   //If it first time player starts playing ask for his/her name
             counter=1;
             break;
         }
