@@ -12,6 +12,7 @@ class Player {
         this.actualbet = 0;
         this.hasblackjack = false;
         this.name = false;
+        this.lost = false;
     }
 }
 function Restart() {    //Restarts the gmae
@@ -97,63 +98,51 @@ function Placebet(x){
     // playerbet.innerHTML=player.actualbet;
     
 };
-function GetsValue(a){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
-    for (let i = 0; i < a.cards.length; i++) {
-            a.values[i]=CheckValue(a.cards[i]); //TODO 2 Aces at start gives hard 2 instead of soft 12
+function GetsValue(player){             //Assigns values for cards (Ace deafult=11 but if over 21 ace=1)
+    for (let i = 0; i < player.cards.length; i++) {
+            player.values[i]=CheckValue(player.cards[i]); //TODO 2 Aces at start gives hard 2 instead of soft 12
         }
-    let y=0;
-    a.values.forEach(x =>{
-        y+=x;
+    let sum=0;
+    let Ace;
+    player.values.forEach(card =>{
+        sum+=card;
     })
-    if (y>21){
+    if (sum>21){
         do{
-            z=Aceone(a);
-            if(z[0]!==0){
-                y=z[0];
+            Ace=Aceone(player);
+            if(Ace[0]!==0){
+                sum=Ace[0];
             }
-        }while(z[0]>21||z[1]===true)}
-    a.sum=y;
-    function Aceone(a){
-        let y=0;
-        let Ace=true
-        for (let i = 0; i < a.cards.length; i++) {
-            if (a.values[i]===11){
-                a.values[i]=1;
-                y=0;
-                a.values.forEach(x =>{
-                    y+=x;
+        }while(Ace[0]>21||Ace[1]===true)}
+    player.sum=sum;
+    }
+    function Aceone(player){
+        let sum=0;
+        for (let i = 0; i < player.cards.length; i++) {
+            if (player.values[i]===11){
+                player.values[i]=1;
+                sum=0;
+                player.values.forEach(x =>{
+                    sum+=x;
                 });
                 Ace=true;
                 break;
             }
             else{Ace=false;}
         }
-    return [y,Ace];
+    return [sum,Ace];
     }
 function CheckValue(x){
-    switch (true) {
-        case(x<5) :
-            return 2;
-        case(x<9) :
-            return 3;
-        case(x<13) :
-            return 4;
-        case(x<17) :
-            return 5;
-        case(x<21) :
-            return 6;
-        case(x<25) :
-            return 7;
-        case(x<29) :
-            return 8;
-        case(x<33) :
-            return 9;
-        case(x<49) :
-            return 10;
-        case(x<53) :
-            return 11;              
-            }
-        }
+    if(x<5) return 2;
+    else if(x<9)  return 3;
+    else if(x<13)  return 4;
+    else if(x<17)  return 5;
+    else if(x<21)  return 6;
+    else if(x<25)  return 7;
+    else if(x<29)  return 8;
+    else if(x<33)  return 9;
+    else if(x<49)  return 10;
+    else if(x<53)  return 11;              
 
 }
 function ClearCards(card,name){
@@ -216,11 +205,12 @@ function CheckBlackjack(){
     }
     else if(dealer.values[0]===11&&dealer.sum===21){    
         if(!player.sum==21){
-            Show_endscreen("DB");
-            return true;}
-        else{
             Show_endscreen("Push");
             return false;
+        }
+        else{
+            Show_endscreen("DB");
+            return true;
         }
     }
     }
@@ -307,7 +297,9 @@ function MainGame(button){                          //Main Function
             if (player.sum>21) {
                 Show_endscreen("Bust");
                 DisableButtons(true);
+                player.lost=true;
                 }
+            else player.lost=false;
             counter++;
             document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
             document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
@@ -350,14 +342,15 @@ function MainGame(button){                          //Main Function
             if (player.balance>=2*player.actualbet){
                 player.actualbet=2*player.actualbet;
                 MainGame("hit");
-                MainGame("stand");
-                counter++;
+                if (player.lost==false){
+                    MainGame("stand");
+                }
             }
             else alert('Insufficent balance');
             break;
         }
         case "surrender":{
-            //TODO return 1/2 of bet and player doesnt ply this round
+            //DONE return 1/2 of bet and player doesnt ply this round
             player.actualbet=player.actualbet/2;
             player.balance=Math.floor(player.balance-player.actualbet);
             document.getElementById("dealer53").className="none";
@@ -369,7 +362,7 @@ function MainGame(button){                          //Main Function
             break;
         }
         case "insurance":{
-            //TODO place 1/2 of player bet that dealer have natural blackjack
+            //DONE place 1/2 of player bet that dealer have natural blackjack
             if (player.balance>=player.actualbet+(player.actualbet/2)){
                 insurancebet=player.actualbet/2;
                 counter++;
