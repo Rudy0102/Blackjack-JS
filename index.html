@@ -13,6 +13,7 @@
         <button class="menubutton" id="menustart">Start the game</button><br>
         <button class="menubutton" id="menuoptions" disabled>Options</button><br>
         <a href='credits.html'><button class="menubutton" id="menucredits">Credits</button></a><br>
+        <a href='showscoreboard.php'><button class="menubutton" id="menuscoreboard">Scoreboard</button></a><br>
     </section>
     <section class="none" id="playscreen">
         <div class="div-center">
@@ -148,13 +149,15 @@
         </div>
         <div class="div-balance">
             <p><span>Actual bet: </span><span id="playerbet" ></span></p><br>
-            <p><span>Actual balance: </span><span id="playerbalance"></span></p>
+            <p><span>Actual balance: </span><span id="playerbalance"></span></p><br>
+            <button id="buttonbacktomenu" class="buttonbackmenu"><span class="buttonbackmenu">Back to menu</span></button>
         </div>
     </section>
     <section class="none" id="betscreen">
         <div>    
             <p class="balance">Actual balance: <span id="bet-balance"></span></p>
             <p class="balance">Actual bet: <span id="actual-bet"></span></p>
+            <br>
         </div><br>
         <div class="div-img">
             <img src="./Images/chips/whitechip.png" alt="whitechip" id="whitechip">

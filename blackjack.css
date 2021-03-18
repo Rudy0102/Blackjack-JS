@@ -131,6 +131,10 @@ body{
     font-size: 40px;
     color: #FFF;
 }
+.buttonbackmenu{
+    margin: 15px 0px;
+    font-size: 140%;
+}
 .betscreen{
     position: fixed;
     display: block;

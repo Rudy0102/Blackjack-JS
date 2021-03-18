@@ -11,7 +11,7 @@ class Player {
         this.balance = 100.0;
         this.actualbet = 0;
         this.hasblackjack = false;
-        this.name = false;
+        this.hasname = false;
         this.lost = false;
     }
 }
@@ -237,6 +237,17 @@ function GetPlayerName(){
     }while(player.name.length>10);
     document.getElementById("player-text").innerHTML=player.name;
 };
+function Menuback(){
+    const xhttp = new XMLHttpRequest;
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        console.log('Data saved to Database');
+        window.location="./index.html";
+        }
+      };
+    xhttp.open("GET", "addtoscoreboard.php?nick="+player.name+"&wynik="+player.balance, true);
+    xhttp.send();
+}
 function MainGame(button){                          //Main Function
     console.log(player.balance);
     playerbet.innerHTML=player.actualbet;
@@ -276,9 +287,9 @@ function MainGame(button){                          //Main Function
             // console.log(player);
             document.getElementById("player-value").innerHTML="Cards value: "+player.sum;
             document.getElementById("dealer-value").innerHTML="Cards value: "+dealer.sum;
-            if(player.name==false){
+            if(player.hasname==false){
                 GetPlayerName();
-                player.name = true;}   //If it first time player starts playing ask for his/her name
+                player.hasname = true;}   //If it first time player starts playing ask for his/her name
             counter=1;
             break;
         }
@@ -416,6 +427,8 @@ const betconfrim=document.getElementById("BetConfirm");
 betconfrim.addEventListener("click",Placebet.bind(this,"hide"));
 const actualbet=document.getElementById('actual-bet');
 const playerbet=document.getElementById('playerbet');
+const button_backtomenu=document.getElementById('buttonbacktomenu');
+button_backtomenu.addEventListener('click',()=>{Menuback();})
 // let button_split=document.getElementById("split")
 // button_split.addEventListener("click",MainGame.bind(this,"split"));
 // let player=window.prompt("Enter your name: ")
